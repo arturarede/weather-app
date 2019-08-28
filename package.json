@@ -1,0 +1,27 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "A weather app to compare temperatures",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ryyk/weather-app.git"
+  },
+  "author": "Artur Arede",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ryyk/weather-app/issues"
+  },
+  "homepage": "https://github.com/Ryyk/weather-app#readme",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "request": "^2.88.0"
+  }
+}
