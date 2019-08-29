@@ -65,7 +65,7 @@
       <div class="container">
         <div class="columns">
           <div class="column is-offset-4 is-3">
-            <% if(weather_data !== null){ %>
+            <% if(cities_data !== null){ %>
             <div class="table-container">
               <table id="myTable" class="table">
                 <thead>
@@ -79,20 +79,20 @@
                 </thead>
             </div>
             <tbody>
-             <% for (weather of weather_data) {%>
+             <% for (city of cities_data) {%>
                 <tr class="item">
-                <td><%= weather.city %></td>
-                <td><%= weather.temperature %> °C </td>
+                <td><%= city.name %></td>
+                <td><%= city.temperature %> °C </td>
                 <td>
                     <span class="icon is-medium">
                         <img
-                            src="http://openweathermap.org/img/w/<%= weather.icon %>.png"
+                            src="http://openweathermap.org/img/w/<%= city.icon %>.png"
                             alt="Image" />
-                        <%= weather.description %>
+                        <%= city.description %>
                     </span>
                 </td>
-                <td>07:00</td>
-                <td>21:00</td>
+                <td><%= city.sunrise %></td>
+                <td><%= city.sunset %></td>
                 </tr>
             <% } %>
             </tbody>
