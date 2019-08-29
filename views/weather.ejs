@@ -15,7 +15,7 @@
   </head>
 
   <body>
-    <section class="hero is-dark is-bold">
+    <section class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
@@ -24,7 +24,8 @@
           <h2 class="subtitle">
             Compare Cities
           </h2>
-        </div>
+          <h3>by <a href="https://github.com/Ryyk">Artur Arêde</a></h3>
+        
       </div>
     </section>
     <section class="section">
@@ -52,7 +53,7 @@
                   placeholder="City Name 3"
                 />
                 <div class="control">
-                  <button class="button is-info">
+                  <button class="button is-primary">
                     Compare Cities
                   </button>
                 </div>
@@ -62,11 +63,12 @@
         </div>
       </div>
     </section>
+    <% if(cities_data !== null){ %>
     <nav class="level">
                 <div class="level-item">
                 <div class="columns">
                         <div class="column is-half is-offset-one-quarter">
-                          <% if(cities_data !== null){ %>
+                          
                           <div class="table-container">
                             <table id="myTable" class="table is-hoverable is-striped">
                               <thead>
@@ -98,7 +100,7 @@
                           <% } %>
                           </tbody>
                           </table>
-                          <% } %>
+                          
                         </div>
                       </div>
         </div>
@@ -106,10 +108,10 @@
                 <div>
                       </div>
         </div>
-                <div class="level-item" style="width:27%">
+                <div class="level-item" style="width:22%">
                         <canvas id="myChart"></canvas>
                 </div>
-                        
+        
     </nav>
     
     <script>
@@ -133,15 +135,16 @@
             ],
             //backgroundColor:'green',
             backgroundColor:[
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)'
+            'rgba(0, 210, 180, 1.0)',
+            'rgba(0, 144, 167, 1.0)',
+            'rgba(0, 168, 130, 0.2)'
             ],
             borderWidth:1,
             borderColor:'#777',
             hoverBorderWidth:3,
             hoverBorderColor:'#000'
         }]
+        
         },
         options:{
         title:{
@@ -179,13 +182,6 @@
         }
     });
     </script>
-    <footer class="footer">
-      <div class="content has-text-centered">
-        <p>
-          <strong>Weather App</strong> by
-          <a href="https://github.com/Ryyk">Artur Arêde</a>.
-        </p>
-      </div>
-    </footer>
+    <% } %>
   </body>
 </html>
