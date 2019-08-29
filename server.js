@@ -19,7 +19,13 @@ app.post('/', function(req, res) {
     var cities = [req.body.city_name1, req.body.city_name2, req.body.city_name3];
 
     getCitiesData(cities).then(function(results) {
-        res.render('weather', {cities_data: results, error: null});
+        if(results == null){
+            res.render('weather', {cities_data: results, error: "Please insert a valid city name!"});
+        }
+        else 
+        {
+            res.render('weather', {cities_data: results, error: null});
+        }
     });
 });
 
@@ -91,8 +97,15 @@ async function getCitiesData(cities) {
     for (var city_obj of cities) {
         var city = city_obj;
         var url_weather = `http://localhost:8000/weather/${city}`;
-        var response_body_weather = await requestP(url_weather);
+        try{
+            var response_body_weather = await requestP(url_weather);
+        } catch(e) {
+            return null;
+        }
         var weather_json = JSON.parse(response_body_weather);
+
+        if(weather_json.cod === '404')
+            return null
 
         var lat = weather_json.lat
         var lon = weather_json.lon

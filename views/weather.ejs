@@ -63,6 +63,11 @@
         </div>
       </div>
     </section>
+    <% if(error !== null){ %>
+      <div class="notification is-danger">
+        Please insert <strong>valid city names</strong>
+      </div>
+    <% } %>
     <% if(cities_data !== null){ %>
     <nav class="level">
                 <div class="level-item">
