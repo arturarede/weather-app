@@ -20,7 +20,7 @@ app.post('/', function(req, res) {
 
     getCitiesData(cities).then(function(results) {
         if(results == null){
-            res.render('weather', {cities_data: results, error: "Please insert a valid city name!"});
+            res.render('weather', {cities_data: results, error: true});
         }
         else 
         {
