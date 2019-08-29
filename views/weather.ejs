@@ -1,85 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
     <title>What's the weather like?</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css"
+    />
+    
+  </head>
 
-<body>
+  <body>
     <section class="hero is-dark is-bold">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Weather App
-                </h1>
-                <h2 class="subtitle">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Weather App
+          </h1>
+          <h2 class="subtitle">
+            Compare Cities
+          </h2>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-offset-1 is-5">
+            <form method="POST">
+              <div class="field has-addons">
+                <input
+                  class="input"
+                  name="city_name1"
+                  type="text"
+                  placeholder="City Name 1"
+                />
+                <input
+                  class="input"
+                  name="city_name2"
+                  type="text"
+                  placeholder="City Name 2"
+                />
+                <input
+                  class="input"
+                  name="city_name3"
+                  type="text"
+                  placeholder="City Name 3"
+                />
+                <div class="control">
+                  <button class="button is-info">
                     Compare Cities
-                </h2>
-            </div>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </section>
     <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-offset-1 is-5">
-                    <form method="POST">
-                        <div class="field has-addons">
-                            <input class="input" name="city_name1" type="text" placeholder="City Name 1">
-                            <input class="input" name="city_name2" type="text" placeholder="City Name 2">
-                            <input class="input" name="city_name3" type="text" placeholder="City Name 3">
-                            <div class="control">
-                                <button class="button is-info">
-                                    Compare Cities
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+      <div class="container">
+        <div class="columns">
+          <div class="column is-offset-4 is-3">
+            <% if(weather_data !== null){ %>
+            <div class="table-container">
+              <table id="myTable" class="table">
+                <thead>
+                  <tr>
+                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">City</th>
+                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Temperature</th>
+                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Description</th>
+                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Sunrise</th>
+                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(5)')" style="cursor:pointer">Sunset</th>
+                  </tr>
+                </thead>
             </div>
+            <tbody>
+             <% for (weather of weather_data) {%>
+                <tr class="item">
+                <td><%= weather.city %></td>
+                <td><%= weather.temperature %> °C </td>
+                <td>
+                    <span class="icon is-medium">
+                        <img
+                            src="http://openweathermap.org/img/w/<%= weather.icon %>.png"
+                            alt="Image" />
+                        <%= weather.description %>
+                    </span>
+                </td>
+                <td>07:00</td>
+                <td>21:00</td>
+                </tr>
+            <% } %>
+            </tbody>
+            </table>
+            <% } %>
+          </div>
         </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-offset-4 is-4">
-                    <% if(weather_data !== null){ %>
-                        <% for (weather of weather_data) { %>
-                            <div class="box">
-                                <article class="media">
-                                    <div class="media-left">
-                                        <figure class="image is-50x50">
-                                            <img src="http://openweathermap.org/img/w/<%= weather.icon %>.png" alt="Image">
-                                        </figure>
-                                    </div>
-                                    <div class="media-content">
-                                        <div class="content">
-                                            <p>
-                                                <span class="title"><%= weather.city %></span>
-                                                <br>
-                                                <span class="subtitle"><%= weather.temperature %>° C</span>
-                                                <br> <%= weather.description %>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                        <% } %>
-                    <% } %>
-                </div>
-            </div>
-        </div>
+      </div>
     </section>
     <footer class="footer">
-        <div class="content has-text-centered">
-            <p>
-                <strong>Weather App</strong> by <a href="https://github.com/Ryyk">Artur Arêde</a>.
-            </p>
-        </div>
+      <div class="content has-text-centered">
+        <p>
+          <strong>Weather App</strong> by
+          <a href="https://github.com/Ryyk">Artur Arêde</a>.
+        </p>
+      </div>
     </footer>
-</body>
-
+  </body>
 </html>

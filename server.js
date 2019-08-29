@@ -16,9 +16,7 @@ app.post('/', function(req, res) {
     var cities = [req.body.city_name1, req.body.city_name2, req.body.city_name3];
 
     getWeather(cities).then(function(results) {
-
         res.render('weather', {weather_data: results, error: null});
-
     });
 });
 
@@ -49,3 +47,4 @@ async function getWeather(cities) {
 app.listen(8000, function () {
     console.log('App listening on port 8000!')
 })
+
