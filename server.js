@@ -2,8 +2,10 @@ const express = require('express')
 const request = require('request');
 const requestP = require('request-promise');
 const bodyParser = require('body-parser');
+const log = require('log-to-file');
 const app = express();
 
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
@@ -45,6 +47,7 @@ app.get("/weather/:city", function(req, res) {
                 };
                 res.send(weather);
                 res.status(response.statusCode).end()
+                log(`/weather/:${city}`);
             }
         }
     });
@@ -72,10 +75,15 @@ app.get("/suntime/:lat,:lon", function(req, res) {
                 };
                 res.send(suntime);
                 res.status(response.statusCode).end()
+                log(`/suntime/:${lat},${lon}`);
             }
         }
     });
 });
+
+app.listen(8000, function () {
+    console.log('App listening on port 8000!')
+})
 
 async function getCitiesData(cities) {
     var cities_data = [];
@@ -107,7 +115,6 @@ async function getCitiesData(cities) {
     return cities_data;
 }
 
-app.listen(8000, function () {
-    console.log('App listening on port 8000!')
-})
+
+
 

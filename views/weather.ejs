@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
     <title>What's the weather like?</title>
     <link
       rel="stylesheet"
@@ -61,47 +62,123 @@
         </div>
       </div>
     </section>
-    <section class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-offset-4 is-3">
-            <% if(cities_data !== null){ %>
-            <div class="table-container">
-              <table id="myTable" class="table">
-                <thead>
-                  <tr>
-                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">City</th>
-                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Temperature</th>
-                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Description</th>
-                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Sunrise</th>
-                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(5)')" style="cursor:pointer">Sunset</th>
-                  </tr>
-                </thead>
-            </div>
-            <tbody>
-             <% for (city of cities_data) {%>
-                <tr class="item">
-                <td><%= city.name %></td>
-                <td><%= city.temperature %> °C </td>
-                <td>
-                    <span class="icon is-medium">
-                        <img
-                            src="http://openweathermap.org/img/w/<%= city.icon %>.png"
-                            alt="Image" />
-                        <%= city.description %>
-                    </span>
-                </td>
-                <td><%= city.sunrise %></td>
-                <td><%= city.sunset %></td>
-                </tr>
-            <% } %>
-            </tbody>
-            </table>
-            <% } %>
-          </div>
+    <nav class="level">
+                <div class="level-item">
+                <div class="columns">
+                        <div class="column is-half is-offset-one-quarter">
+                          <% if(cities_data !== null){ %>
+                          <div class="table-container">
+                            <table id="myTable" class="table is-hoverable is-striped">
+                              <thead>
+                                <tr>
+                                  <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">City</th>
+                                  <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Temperature</th>
+                                  <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Description</th>
+                                  <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Sunrise</th>
+                                  <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(5)')" style="cursor:pointer">Sunset</th>
+                                </tr>
+                              </thead>
+                          </div>
+                          <tbody>
+                           <% for (city of cities_data) {%>
+                              <tr class="item">
+                              <td><%= city.name %></td>
+                              <td><%= city.temperature %> °C </td>
+                              <td>
+                                  <span class="icon is-medium">
+                                      <img
+                                          src="http://openweathermap.org/img/w/<%= city.icon %>.png"
+                                          alt="Image" />
+                                      <%= city.description %>
+                                  </span>
+                              </td>
+                              <td><%= city.sunrise %></td>
+                              <td><%= city.sunset %></td>
+                              </tr>
+                          <% } %>
+                          </tbody>
+                          </table>
+                          <% } %>
+                        </div>
+                      </div>
         </div>
-      </div>
-    </section>
+        <div class="level-item" style="width:10%">
+                <div>
+                      </div>
+        </div>
+                <div class="level-item" style="width:27%">
+                        <canvas id="myChart"></canvas>
+                </div>
+                        
+    </nav>
+    
+    <script>
+    let myChart = document.getElementById('myChart').getContext('2d');
+
+    // Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = '#777';
+
+    let massPopChart = new Chart(myChart, {
+        type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+        data:{
+        labels:['<%= cities_data[0].name %>', '<%= cities_data[1].name %>', '<%= cities_data[2].name %>'],
+        datasets:[{
+            label:'Temperature',
+            data:[
+            <%= cities_data[0].temperature %>,
+            <%= cities_data[1].temperature %>,
+            <%= cities_data[2].temperature %>
+            ],
+            //backgroundColor:'green',
+            backgroundColor:[
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)'
+            ],
+            borderWidth:1,
+            borderColor:'#777',
+            hoverBorderWidth:3,
+            hoverBorderColor:'#000'
+        }]
+        },
+        options:{
+        title:{
+            display:false,
+            text:'Temperature by city',
+            fontSize:25
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    steps: 10,
+                    stepValue: 5
+                }
+            }]
+        },
+        legend:{
+            display:true,
+            position:'right',
+            labels:{
+            fontColor:'#000'
+            }
+        },
+        layout:{
+            padding:{
+            left:10,
+            right:0,
+            bottom:0,
+            top:0
+            }
+        },
+        tooltips:{
+            enabled:true
+        }
+        }
+    });
+    </script>
     <footer class="footer">
       <div class="content has-text-centered">
         <p>
